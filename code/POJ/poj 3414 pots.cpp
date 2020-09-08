@@ -3,6 +3,7 @@
 *	Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
 */ 
 #include <bits/stdc++.h>
+#define endl "\n"
 #define inf 0x7fffffff-1
 #define llinf 9223372036854775807LL
 #define F first
@@ -28,9 +29,10 @@ ll q_pow(ll a, ll b)
     return ans;
 }
 
-
+int a,b,c; 
 void input()
 {
+	scanf("%d%d",)
 }
 
 void solve()
@@ -39,8 +41,9 @@ void solve()
 
 int main()
 {
+	ios::sync_with_stdio(false);
 	int t = 1;
-	//scanf("%d",&t);
+	//cin >> t;
 	while(t--)
 	{
 		input();
