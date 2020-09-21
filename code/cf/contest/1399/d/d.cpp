@@ -1,9 +1,8 @@
 /*
-*	Author: $%U%$
-*	Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
+*	Author: coder_tq1
+*	Time: 2020-09-10 20:49:05
 */ 
 #include <bits/stdc++.h>
-#define endl "\n"
 #define inf 0x7fffffff-1
 #define llinf 9223372036854775807LL
 #define F first
@@ -29,42 +28,57 @@ ll q_pow(ll a, ll b)
     return ans;
 }
 
-int a,b,c; 
+int n;
+string str; 
 void input()
 {
-	scanf("%d%d%d",&a,&b,&c);
+	cin >> n >> str;
 }
 
-int vis[110];
-string str[] = {"FILL(1)","FILL(2)","DROP(1)","DROP(2)","POUR(2,1)","POUR(1,2)"};//1 2 3 4 5 6
-queue<int> qu;
-int cura = 0,curb = 0;
-
-void bfs()
-{
-	if(cura!=a) qu.push(0);
-	if(curb!=b) qu.push(1);
-	if(cura!=0) qu.push(2);
-	if(curb!=0) qu.push(3);
-	if(curb!=0) qu.push(4);
-	if(cura!=0) qu.push(5);
-	
-	while(!qu.empty() ){
-		
-	}
-}
-
+int cur1;
+int cur0;
+int ans[200010];
 void solve()
 {
-	MEM(vis);
-	bfs();
+	int mx = 0;
+	int sum = 0;
+	cur1 = 1;
+	cur0 = 1;
+	REP(i,0,n-1){
+		if(str[i] == '1'){
+			if(cur0 > 1){
+				cur0--;
+				if(cur0 == 1) cur1++;
+				ans[i] = cur0;
+			}
+			else {
+				ans[i] = cur1;
+				cur1++;
+			}
+		}
+		else {
+			if(cur1 > 1){
+				cur1--;
+				if(cur1 == 1) cur0++;
+				ans[i] = cur1;
+			}
+			else {
+				ans[i] = cur0;
+				cur0++;
+			}
+		}
+		mx = max(mx,ans[i]);
+	}
+	cout << mx << endl;
+	REP(i,0,n-1) cout << ans[i] << ' ';
+	cout << endl;
 }
-
+//11100000111111
+//12332145
 int main()
 {
-	ios::sync_with_stdio(false);
 	int t = 1;
-	//cin >> t;
+	scanf("%d",&t);
 	while(t--)
 	{
 		input();

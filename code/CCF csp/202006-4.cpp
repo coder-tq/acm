@@ -3,7 +3,6 @@
 *	Time: $%Y%$-$%M%$-$%D%$ $%h%$:$%m%$:$%s%$
 */ 
 #include <bits/stdc++.h>
-#define endl "\n"
 #define inf 0x7fffffff-1
 #define llinf 9223372036854775807LL
 #define F first
@@ -29,42 +28,58 @@ ll q_pow(ll a, ll b)
     return ans;
 }
 
-int a,b,c; 
+int n;
+string s; 
 void input()
 {
-	scanf("%d%d%d",&a,&b,&c);
+	cin >> n >> s; 
 }
 
-int vis[110];
-string str[] = {"FILL(1)","FILL(2)","DROP(1)","DROP(2)","POUR(2,1)","POUR(1,2)"};//1 2 3 4 5 6
-queue<int> qu;
-int cura = 0,curb = 0;
-
-void bfs()
-{
-	if(cura!=a) qu.push(0);
-	if(curb!=b) qu.push(1);
-	if(cura!=0) qu.push(2);
-	if(curb!=0) qu.push(3);
-	if(curb!=0) qu.push(4);
-	if(cura!=0) qu.push(5);
-	
-	while(!qu.empty() ){
-		
+string fun(int n){
+	string str = "2";
+	string strt = "";
+	while(n--){
+		strt = "";
+		for(int i = 0; i < str.length(); i++)
+		{
+			strt += to_string( 1 << (str[i]-'0') );
+		}
+		str = strt;
 	}
+	return str;
 }
 
+
+
+string str[10];
+int dp[100010][10];//1 2 4 6
+int def[4] = {1,2,4,6};
 void solve()
 {
-	MEM(vis);
-	bfs();
+	REP(i,0,9) str[i] = fun(i);
+	REP(i,0,9) {
+		REP(j,0,3){
+			int sum = 0;
+			for(char k : str[i])
+			{
+				if(k - '0' == def[j]) sum++;
+			}
+			dp[i][def[j]] = sum;
+		}
+	}
+	REP(i,9,n) {
+		REP(j,0,3){
+			dp[i][def[j]] = (dp[i-3][def[j]]+dp[i-2][def[j]]+dp[i-1][def[j]]-dp[i-4][def[j]])%998244353;
+		}
+	}
+	if(s.length() > 1) exit(-1);
+	else printf("%d\n",dp[n-1][s[0]-'0']);
 }
 
 int main()
 {
-	ios::sync_with_stdio(false);
 	int t = 1;
-	//cin >> t;
+	//scanf("%d",&t);
 	while(t--)
 	{
 		input();
